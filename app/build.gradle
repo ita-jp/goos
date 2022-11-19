@@ -22,6 +22,9 @@ dependencies {
 
     // This dependency is used by the application.
     implementation 'com.google.guava:guava:31.0.1-jre'
+
+    implementation files('../libs/windowlicker-core-DEV.jar')
+    implementation files('../libs/windowlicker-swing-DEV.jar')
 }
 
 application {
