@@ -3,17 +3,17 @@
  */
 package com.example.goos;
 
+import com.example.goos.auctionsniper.AuctionMessageTranslator;
 import com.example.goos.auctionsniper.ui.MainWindow;
 import org.jivesoftware.smack.Chat;
 import org.jivesoftware.smack.XMPPConnection;
 import org.jivesoftware.smack.XMPPException;
-import org.jivesoftware.smack.packet.Message;
 
 import javax.swing.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-public class Main {
+public class Main implements AuctionEventListener {
 
     public static final String JOIN_COMMAND_FORMAT = "SOLVersion: 1.1; Command: JOIN;";
     public static final String BID_COMMAND_FORMAT = "SOLVersion: 1.1; Command: BID; Price: %d";
@@ -46,10 +46,15 @@ public class Main {
         disconnectWhenUICloses(connection);
         final var chat = connection.getChatManager().createChat(
                 auctionId(itemId, connection),
-                (chat1, message) -> SwingUtilities.invokeLater(() -> ui.showStatus(MainWindow.STATUS_LOST))
+                new AuctionMessageTranslator(this)
         );
-        this.notToBeGCd = chat;
         chat.sendMessage(JOIN_COMMAND_FORMAT);
+        this.notToBeGCd = chat;
+    }
+
+    @Override
+    public void auctionClosed() {
+        SwingUtilities.invokeLater(() -> ui.showStatus(MainWindow.STATUS_LOST));
     }
 
     private void disconnectWhenUICloses(final XMPPConnection connection) {
