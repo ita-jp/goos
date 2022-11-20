@@ -12,7 +12,7 @@ public class AuctionSniperEndToEndTest {
     public void sniperJoinsAuctionUntilAuctionCloses() throws Exception {
         auction.startSellingItem();
         application.startBiddingIn(auction);
-        auction.hasReceivedJoinRequestFromSniper("ApplicationRunner.SNIPER_XMPP_ID");
+        auction.hasReceivedJoinRequestFromSniper(ApplicationRunner.SNIPER_XMPP_ID);
         auction.announceClosed();
         application.showsSniperHasLostAuction();
     }
@@ -22,8 +22,7 @@ public class AuctionSniperEndToEndTest {
         auction.startSellingItem();
 
         application.startBiddingIn(auction);
-//        auction.hasReceivedJoinRequestFromSniper(ApplicationRunner.SNIPER_XMPP_ID);
-        auction.hasReceivedJoinRequestFromSniper("sniper@19bc65a04eee/Auction");
+        auction.hasReceivedJoinRequestFromSniper(ApplicationRunner.SNIPER_XMPP_ID);
 
         auction.reportPrice(
                 1000, // 現在価格
@@ -32,8 +31,7 @@ public class AuctionSniperEndToEndTest {
         );
 
         application.hasShownSniperIsBidding();
-//        auction.hasReceivedBid(1098, ApplicationRunner.SNIPER_XMPP_ID);
-        auction.hasReceivedBid(1098, "ApplicationRunner.SNIPER_XMPP_ID");
+        auction.hasReceivedBid(1098, ApplicationRunner.SNIPER_XMPP_ID);
 
         auction.announceClosed();
         application.showsSniperHasLostAuction();
