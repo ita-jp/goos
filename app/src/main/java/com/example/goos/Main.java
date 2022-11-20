@@ -13,6 +13,8 @@ import javax.swing.*;
 
 public class Main {
 
+    public static final String JOIN_COMMAND_FORMAT = "SOLVersion: 1.1; Command: JOIN;";
+    public static final String BID_COMMAND_FORMAT = "SOLVersion: 1.1; Command: BID; Price: %d";
     private static final int ARG_HOSTNAME = 0;
     private static final int ARG_USERNAME = 1;
     private static final int ARG_PASSWORD = 2;
@@ -44,7 +46,7 @@ public class Main {
                 (chat1, message) -> SwingUtilities.invokeLater(() -> ui.showStatus(MainWindow.STATUS_LOST))
         );
         this.notToBeGCd = chat;
-        chat.sendMessage(new Message());
+        chat.sendMessage(JOIN_COMMAND_FORMAT);
     }
 
     private static XMPPConnection connectTo(String hostname, String username, String password) throws XMPPException {

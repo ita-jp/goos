@@ -1,5 +1,6 @@
 package com.example.goos;
 
+import com.example.goos.auctionsniper.ui.MainWindow;
 import org.hamcrest.Matcher;
 import org.jivesoftware.smack.Chat;
 import org.jivesoftware.smack.MessageListener;
@@ -44,13 +45,17 @@ public class FakeAuctionServer {
         });
     }
 
-    public void hasReceivedJoinRequestFromSniper() throws InterruptedException {
-        messageListener.receivesAMessage(is(anything()));
+    public void hasReceivedJoinRequestFromSniper(String sniperId) throws InterruptedException {
+        receivedAMessageMatching(sniperId, equalTo(Main.JOIN_COMMAND_FORMAT));
     }
 
     public void hasReceivedBid(int bid, String sniperId) throws InterruptedException {
+        receivedAMessageMatching(sniperId, equalTo(format(Main.BID_COMMAND_FORMAT, bid)));
+    }
+
+    private void receivedAMessageMatching(String sniperId, Matcher<? super String> messageMatcher) throws InterruptedException {
+        messageListener.receivesAMessage(messageMatcher);
         assertThat(currentChat.getParticipant(), equalTo(sniperId));
-        messageListener.receivesAMessage(equalTo(String.format("SOLVersion: 1.1; Command: BID; Price: %d;", bid)));
     }
 
     public void announceClosed() throws XMPPException {
