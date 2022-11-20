@@ -40,7 +40,7 @@ dependencies {
 
 application {
     // Define the main class for the application.
-    mainClass = 'com.example.goos.App'
+    mainClass = 'com.example.goos.Main'
 }
 
 tasks.named('test') {

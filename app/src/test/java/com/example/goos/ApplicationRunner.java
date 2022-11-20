@@ -1,11 +1,13 @@
 package com.example.goos;
 
-import com.sun.tools.javac.Main;
 
 public class ApplicationRunner {
 
     public static final String SNIPER_ID = "sniper";
     public static final String SNIPER_PASSWORD = "sniper";
+    private static final String XMPP_HOSTNAME = "localhost";
+    private static final String STATUS_JOINING = "Joining";
+    private static final String STATUS_LOST = "Lost";
     private AuctionSniperDriver driver;
 
     public void startBiddingIn(final FakeAuctionServer auction) {
@@ -26,7 +28,7 @@ public class ApplicationRunner {
     }
 
     public void showsSniperHasLostAuction() {
-        driver.showsSniperHasLostAuction(STATUS_LOST);
+        driver.showsSniperStatus(STATUS_LOST);
     }
 
     public void stop() {
