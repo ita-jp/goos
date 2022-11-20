@@ -1,6 +1,8 @@
 package com.example.goos;
 
 
+import com.example.goos.auctionsniper.ui.MainWindow;
+
 public class ApplicationRunner {
 
     public static final String SNIPER_ID = "sniper";
@@ -39,6 +41,6 @@ public class ApplicationRunner {
     }
 
     public void hasShownSniperIsBidding() {
-        // TODO
+        driver.showsSniperStatus(MainWindow.STATUS_BIDDING);
     }
 }
