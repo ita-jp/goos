@@ -6,6 +6,8 @@ import com.objogate.wl.swing.driver.JLabelDriver;
 import com.objogate.wl.swing.gesture.GesturePerformer;
 import com.sun.tools.javac.Main;
 
+import static org.hamcrest.Matchers.equalTo;
+
 public class AuctionSniperDriver extends JFrameDriver {
 
     public AuctionSniperDriver(int timeoutMillis) {
