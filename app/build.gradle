@@ -26,6 +26,16 @@ dependencies {
 
     implementation files('../libs/windowlicker-core-DEV.jar')
     implementation files('../libs/windowlicker-swing-DEV.jar')
+
+    // ref. https://github.com/igniterealtime/Smack/wiki/Smack-4.4-Readme-and-Upgrade-Guide#with-gradle
+//    implementation "org.igniterealtime.smack:smack-java8:4.4.0"
+//    implementation "org.igniterealtime.smack:smack-tcp:4.4.0"
+//    implementation "org.igniterealtime.smack:smack-im:4.4.0"
+//    implementation "org.igniterealtime.smack:smack-extensions:4.4.0"
+
+    // https://mvnrepository.com/artifact/org.igniterealtime.smack/smack
+    implementation group: 'org.igniterealtime.smack', name: 'smack', version: '3.2.1'
+
 }
 
 application {
