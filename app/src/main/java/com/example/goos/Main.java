@@ -46,13 +46,17 @@ public class Main implements SniperListener {
         disconnectWhenUICloses(connection);
         final var chat = connection.getChatManager().createChat(auctionId(itemId, connection), null);
 
-        var nullAuction = new Auction() {
+        var auction = new Auction() {
             @Override
-            public void bid(int price) {
-
+            public void bid(int amount) {
+                try {
+                    chat.sendMessage(String.format(BID_COMMAND_FORMAT, amount));
+                } catch (XMPPException e) {
+                    e.printStackTrace();
+                }
             }
         };
-        chat.addMessageListener(new AuctionMessageTranslator(new AuctionSniper(nullAuction, this)));
+        chat.addMessageListener(new AuctionMessageTranslator(new AuctionSniper(auction, this)));
         chat.sendMessage(JOIN_COMMAND_FORMAT);
         this.notToBeGCd = chat;
     }
