@@ -52,32 +52,6 @@ public class Main implements SniperListener {
         auction.join();
     }
 
-    public static class XMPPAuction implements Auction {
-
-        private final Chat chat;
-
-        public XMPPAuction(Chat chat) {
-            this.chat = chat;
-        }
-
-        public void join() {
-            sendMessage(JOIN_COMMAND_FORMAT);
-        }
-
-        @Override
-        public void bid(int amount) {
-            sendMessage(String.format(BID_COMMAND_FORMAT, amount));
-        }
-
-        private void sendMessage(String message) {
-            try {
-                chat.sendMessage(message);
-            } catch (XMPPException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
     private void disconnectWhenUICloses(final XMPPConnection connection) {
         ui.addWindowListener(new WindowAdapter() {
             @Override
