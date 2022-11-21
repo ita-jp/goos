@@ -13,7 +13,7 @@ import javax.swing.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-public class Main implements AuctionEventListener {
+public class Main implements SniperListener {
 
     public static final String JOIN_COMMAND_FORMAT = "SOLVersion: 1.1; Command: JOIN;";
     public static final String BID_COMMAND_FORMAT = "SOLVersion: 1.1; Command: BID; Price: %d";
@@ -46,20 +46,10 @@ public class Main implements AuctionEventListener {
         disconnectWhenUICloses(connection);
         final var chat = connection.getChatManager().createChat(
                 auctionId(itemId, connection),
-                new AuctionMessageTranslator(this)
+                new AuctionMessageTranslator(new AuctionSniper(this))
         );
         chat.sendMessage(JOIN_COMMAND_FORMAT);
         this.notToBeGCd = chat;
-    }
-
-    @Override
-    public void auctionClosed() {
-        SwingUtilities.invokeLater(() -> ui.showStatus(MainWindow.STATUS_LOST));
-    }
-
-    @Override
-    public void currentPrice(int price, int increment) {
-        // TODO
     }
 
     private void disconnectWhenUICloses(final XMPPConnection connection) {
@@ -85,5 +75,10 @@ public class Main implements AuctionEventListener {
 
     private void startUserInterface() throws Exception {
         SwingUtilities.invokeAndWait(() -> ui = new MainWindow());
+    }
+
+    @Override
+    public void sniperLost() {
+        SwingUtilities.invokeLater(() -> ui.showStatus(MainWindow.STATUS_LOST));
     }
 }
